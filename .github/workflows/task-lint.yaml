@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: lint-task
+spec:
+  workspaces:
+    - name: source
+  steps:
+    - name: lint
+      image: python:3.10
+      workingDir: $(workspaces.source.path)
+      script: |
+        pip install flake8
+        flake8 .
